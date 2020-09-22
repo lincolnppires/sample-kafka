@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController
  * @author lincoln.pires
  */
 @RestController
-@RequestMapping(value = ["producers"])
+@RequestMapping(value = ["send/message"])
 class ProducerController {
 
     @Autowired
