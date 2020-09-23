@@ -39,4 +39,10 @@ class Consumer {
 
         println("Received Message from a specific partition: $message from partition: $partition")
     }
+
+    //adding message filter for listeners
+    @KafkaListener(topics = ["tutorial1-topic"], containerFactory = "filterKafkaListenerContainerFactory", groupId = "tutorial1-group-filter")
+    fun listenWithFilter(message: String) {
+        println("Received Message in filtered listener: $message")
+    }
 }
