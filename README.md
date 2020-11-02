@@ -1,7 +1,7 @@
 Sample kafka
 ==================================================
 
-##Kafka Theory Overview
+## Kafka Theory Overview
 
 * Topics: a particular stream of data
     - Similiar to a table in a database (without all the constraints)
@@ -117,7 +117,7 @@ Bottom line:
         - Allows for another broker to be taken down unexpectedly 
     - As long as the number of partitions remains constant for a topic (no new partitions), the same key will always go to the same partitions
  
-##Starting Kafka
+## Starting Kafka
 
 * Install Kafka
     - https://kafka.apache.org/quickstart
@@ -193,10 +193,67 @@ Consumer with keys
     - kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic first_topic --from-beginning --property print.key=true --property key.separator=,
 
 See later: 
-    https://www.conduktor.io/
+
+    https://www.conduktor.io/  
     https://medium.com/@coderunner/debugging-with-kafkacat-df7851d21968
+    https://www.confluent.io/blog/upgrading-apache-kafka-clients-just-got-easier/
     
 
+## Advanced Configurations 
 
+* Producers Acks Deep Dive
+    - asks=all: must be used in conjunction with min.insync.replicas
+    - min.insync.replicas can be set at the broker or topic level (override)
+    - min.insync.replicas=2: implies that at least 2 brokers that are ISR (including leader) must respond that they have the data.
+
+That means if you use replication.factor=3, min.insync.replicas=2, acks=all, you can only tolerate 1 broker going down, otherwise the producer will receive an exception on send.
+
+So if you want maximum safety, maximum availability, then min.insync.replicas two, acks equals all, and the replication factor of at least three.	
+
+* Producers Retries
+    - In case of transient failures, developers are expected to handle exceptions, otherwise the data will be lost.
+    - Example of transient failure:
+        - NotEnoughReplicasException
+
+How do we control the fact that we cannot want the producer to retry for us?
+There is a “retries” setting:
+    
+   - defaults to 0 for Kafka <=2.0 (that means your producer will not retry automatically to send your messages.)
+   - defaults to 2147483647 for Kafka >= 2.1 (So that means that as you have a producer, and if it’s using a more recent version of Kafka, 
+	then it will retry automatically a very high number of times.
+
+There’s a setting called the retry back off millisecond.
+The retry.backoff.ms setting is by default 100ms
+
+If retries > 0 the producer won`t try the request for ever, it’s bounded by a timeout.
+
+   - delivery.timeout.ms = 120 000 ms = 2 minutes
+
+Your producer will retry and retry and retry and after two minutes, you will get this timeout and your data will not be sent to Kafka anymore and you have to handle the use cases by looking at the error message in your producer callback.
+
+So if you want it to retry forever, and not worry about handling these cases where the delivery never happens, you could set delivery timeout millisecond 
+to something like very high number. 
+
+* Producer Retries: Warning
+
+In case of retries, there is a chance that messages will be sent out of order (if a batch has failed to be sent).
+
+If you rely on key-based ordering, that can be a big issue, because it won’t change the fact that your messages who share the same 
+key will go to the same partition. But there is chance that they become out of order because of retrieves.
+
+Why because when the producer sends data to Kafka, there is this setting called, max.in.flight.requests.per.connection.
+
+This controls how many producer requests can be made a parallel to a single broker.
+   - Default = 5
+   - Set it to 1 if you need to ensure ordering (may impact throughput)
+
+In kafka > 1.0.0, there’s a better solution with Idempotent producers.
+
+ 
+
+
+
+
+	
     
     
