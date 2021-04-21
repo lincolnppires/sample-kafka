@@ -249,6 +249,43 @@ This controls how many producer requests can be made a parallel to a single brok
 
 In kafka > 1.0.0, there’s a better solution with Idempotent producers.
 
+## Kafka Connect Introduction
+
+Kafka connect is all about code & connectors re-use!
+Why Kafka connect and Streams
+
+* Four Common Kafka use Cases:
+  
+|Cases|||  
+|:--- | :--- | :--- |
+| Source => Kafka | Producer API | Kafka Connect Source |
+|Kafka => Kafka** | Consumer, Producer API | Kafka Streams |
+| Kafka => Sink |   Consumer API    | Kafka Connect Sink |	 
+| Kafka => APP |	Consumer API    | Kafka Connect Sink | 
+
+-   Simplify and improve getting data in and out of Kafka. 
+-   Simplify transforming data within Kafka without relying on external libs
+
+
+**Why Kafka Connect:**
+
+-   Programmers always want to import data form the same sources.
+-   Programmers always want to store data in the same sinks.
+-   It is tough to achieve Fault Tolerance, Idempotence, Distribution, Ordering.
+
+**Kafka Connect - High level**
+
+-   Source Connectors to get data from Common Data Sources. 
+-   Sink Connectors to publish that data in Common Data Stores. 
+-   Make it easy for non-experienced dev to quickly get their data reliably into Kafka.
+-   Part of your ETL pipeline.
+-   Scaling made easy from small pipelines to company-wide pipelines
+-   Re-usable code!!
+
+see later: https://docs.confluent.io/platform/current/connect/index.html
+
+
+
  
 
 
