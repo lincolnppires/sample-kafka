@@ -284,6 +284,23 @@ Why Kafka connect and Streams
 
 see later: https://docs.confluent.io/platform/current/connect/index.html
 
+## Kafka Streams Introduction
+
+* What is Kafka Streams?
+
+    -   Easy data processing and transformation library within Kafka.
+    - Standard Java Application
+    - No need to create a separate cluster
+    - Highly scalable, elastic and fault tolerant
+    - Exactly Once Capabilities
+    - One record at a time processing (no batching)
+    - Works for any application size.
+
+see later: 
+https://docs.confluent.io/platform/current/streams/index.html
+https://docs.confluent.io/platform/current/schema-registry/schema_registry_tutorial.html
+https://medium.com/@stephane.maarek/the-kafka-api-battle-producer-vs-consumer-vs-kafka-connect-vs-kafka-streams-vs-ksql-ef584274c1e
+
 
 
  
