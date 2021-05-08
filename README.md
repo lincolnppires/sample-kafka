@@ -288,7 +288,7 @@ see later: https://docs.confluent.io/platform/current/connect/index.html
 
 * What is Kafka Streams?
 
-    -   Easy data processing and transformation library within Kafka.
+    - Easy data processing and transformation library within Kafka.
     - Standard Java Application
     - No need to create a separate cluster
     - Highly scalable, elastic and fault tolerant
@@ -298,12 +298,39 @@ see later: https://docs.confluent.io/platform/current/connect/index.html
 
 see later: 
 https://docs.confluent.io/platform/current/streams/index.html
+
 https://docs.confluent.io/platform/current/schema-registry/schema_registry_tutorial.html
+
 https://medium.com/@stephane.maarek/the-kafka-api-battle-producer-vs-consumer-vs-kafka-connect-vs-kafka-streams-vs-ksql-ef584274c1e
 
+## Insights:
 
+* Partitions Count 
+  - More partitions implies:
+      - Better parallelism, better throughput
+      - Ability to run more consumers in a group to scale 
+      - Ability to leverage more brokers if you have a large cluster
+      - BUT more elections to perform for Zookeeper
+      - BUT more files opened on Kafka
 
- 
+see later:
+https://www.confluent.io/blog/how-choose-number-topics-partitions-kafka-cluster/
+
+* Replication Factor
+  - Should be at least 2, usually 3, maximum 4
+  - The higher the replication factor (N):
+      - Better resilience of your system (N-1 brokers can fail)
+      - BUT more replication (higher latency if acks = all)
+      - BUT more disk space on your system 
+  - Set it to 3 to get started
+  - If replication performance is a issue, get a better broker instead of less RF 
+  - Never set it to 1 in production
+    
+ see later:
+ https://www.infoq.com/articles/apache-kafka-best-practices-to-optimize-your-deployment/
+
+ https://www.confluent.io/kafka-summit-san-francisco-2019/eventing-things-a-netflix-original/
+
 
 
 
