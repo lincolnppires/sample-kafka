@@ -103,7 +103,9 @@ Bottom line:
     - Zookeeper manages brokers (keeps a list of them)
     - Zookeeper helps in performing leader election for partitions
     - Zookeeper sends notifications to Kafka in case of changes (e.g. new topic, broker dies, broker comes up, delete topics, etc...)
-    - Kafka can`t work without Zookeeper
+    - Kafka 2.x can't work without Zookeeper
+    - Kafka 3.x can work without Zookeeper (KIP-500) - using Kafka Raft instead
+    - Kafka 4.x will not have Zookeeper
     - Zookeeper by design operates with an odd number of server (3,5,7)
     - Zookeeper has a leader (handle writes) the rest of the servers are followers (handle reads)
     - Zookeeper does not store consumer offsets with Kafka > v0.10
