@@ -110,6 +110,12 @@ Bottom line:
     - Zookeeper has a leader (handle writes) the rest of the servers are followers (handle reads)
     - Zookeeper does not store consumer offsets with Kafka > v0.10
 
+Therefore, to be a great modern-day Kafka developer, never ever use Zookeeper as a configuration in your Kafka clients, 
+and other programs that connect to Kafka.
+
+see later:
+https://www.confluent.io/blog/kafka-without-zookeeper-a-sneak-peek/
+
 * Kafka Guarantees
     - Messages are appended to a topic-partition in the order they are sent
     - Consumers read messages in the order stored in a topic-partition
