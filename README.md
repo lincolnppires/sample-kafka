@@ -135,6 +135,8 @@ https://www.confluent.io/blog/kafka-without-zookeeper-a-sneak-peek/
 * Start
     - zookeeper-server-start.sh config/zookeeper.properties
     - kafka-server-start.sh config/server.properties
+* Apache Kafka without Zookeeper
+    - https://www.conduktor.io/kafka/how-to-install-apache-kafka-on-mac-without-zookeeper-kraft-mode/
 
 * Command Line Interface
 
