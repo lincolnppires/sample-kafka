@@ -65,6 +65,7 @@ Sample kafka
     - Each consumer within a group reads from exclusive partitions
     - If you have more consumers than partitions, some consumers will be inactive
     - Consumers will automatically use a GroupCoordinator and a ConsumerCoordinator to assign a consumers to partition.
+see later: https://www.confluent.io/blog/dynamic-vs-static-kafka-consumer-rebalancing/
     
 * Consumer Offsets
     - Kafka stores the offsets at which a consumer group has been reading
